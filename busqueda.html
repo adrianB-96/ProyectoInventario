@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="utf8">
+		<meta name="description" content="Inventario SAT">
+		<meta name="keywords" content="HTML5, CSS3, JavaScript">
+		<title>INVENTARIO</title>
+		<link rel="stylesheet" href="{{ url_for('static', filename='css/estilos.css') }}"/>
+	</head>
+	<body style="background-color:powderblue;">
+		<header>
+		</header>
+			{% include 'navbar.html' %}
+		<section>
+			<article>
+			<br>
+				<div class="busquedaform">
+				<div class="textobusqueda">
+					<h1 id="title">ELIGE LOS DATOS A BUSCAR:</h1>
+					<form method="POST" action="/busqueda" id="busquedaform">
+						<label for="especialidad">ESPECIALIDAD:</label>
+						<select id="especialidad" name="especialidad">
+							<option value="*">TODOS</option>
+							{% for REGISTROS in resultadoconsultaespecialidad %}
+								<option value="{{ REGISTROS.nombre_especialidad }}"> {{ REGISTROS.nombre_especialidad }}</option>
+							{% endfor %}
+						</select>
+						<label for="productos">PRODUCTO:</label>
+						<select id="productos" name="productos">
+							<option value="*">TODOS</option>
+							{% for REGISTROS in resultadoconsultaproducto %}
+								<option value="{{ REGISTROS.modelo_producto }}"> {{ REGISTROS.modelo_producto }}</option>
+							{% endfor %}
+						</select>
+						<label for="puestos">PUESTO:</label>
+						<select id="puestos" name="puestos">
+							<option value="*">TODOS</option>
+							{% for REGISTROS in resultadoconsultapuesto %}
+								<option value="{{ REGISTROS.nombre_puesto }}"> {{ REGISTROS.nombre_puesto }}</option>
+							{% endfor %}
+						</select><br><br>
+						<br><input type="submit" value="BUSCAR" class="boton-buscar">	
+					</form>
+				</div>
+			</div>
+		</article>
+		</section>
+		<footer class="pieDePagina">
+		<h3 style="text-align:center">Copyright © 2025 All rights reserved.</h3>
+		</footer>
+	</body>
+</html>

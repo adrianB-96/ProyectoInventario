@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="utf8">
+		<meta name="description" content="Inventario SAT">
+		<meta name="keywords" content="HTML5, CSS3, JavaScript">
+		<title>INVENTARIO</title>
+		<link rel="stylesheet" href="{{ url_for('static', filename='css/estilos.css') }}"/>
+	</head>
+	<body style="background-color:powderblue;">
+		<header>
+		</header>
+			{% include 'navbar.html' %}
+		<section>
+			<article>
+			<br>
+            <div class="busquedaform">
+				<div class="textobusqueda">
+                    <h1>Elige el pais a buscar:</h1>
+                <form method="POST" action="/llamadasespecialistas" id="llamadasespecialistas">
+                    <label for="paises">PAIS:</label>
+                    <select id="paises" name="paises">
+                        <option value="*">TODOS</option>
+                        {% for LLAMADAS_ESPECIALISTAS in resultadoConsultaPais %}
+                            <option value="{{ LLAMADAS_ESPECIALISTAS.pais }}"> {{ LLAMADAS_ESPECIALISTAS.pais }}</option>
+                        {% endfor %}
+                    </select>
+                    <br>
+                    <br>
+                    <input type="submit" value="BUSCAR" class="boton-buscar">	
+                </form>
+                </div>
+            </div>
+		</article>
+		</section>
+		<footer class="pieDePagina">
+		<h3 style="text-align:center">Copyright © 2026 All rights reserved.</h3>
+		</footer>
+	</body>
+</html>

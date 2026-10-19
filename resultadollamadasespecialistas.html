@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf8">
+    <meta name="description" content="Inventario SAT">
+    <meta name="keywords" content="HTML5, CSS3, JavaScript">
+    <title>INVENTARIO</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/estilos.css') }}" />
+</head>
+
+<body style="background-color:powderblue;">
+    <header>
+    </header>
+    {% include 'navbar.html' %}
+    <section>
+        <article>
+            <br>
+            <div class="busquedaform">
+                <div class="resultadollamadas">
+                    <h2 id="title">REGISTRO DE LLAMADAS ESPECIALISTAS</h2>
+                    <div>
+                        <h1>REGISTROS TOTALES: {{ datatotal }}</h1>
+                    </div>
+                    <!-- {{ dataconsulta }} -->
+                    {% if (dataconsulta) %}
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>PAIS</th>
+                                <th>NUMERO</th>
+                                <th>CLIENTE</th>
+                                <th>AGENTE RECEPTOR</th>
+                                <th>HORA ATENDIDO</th>
+                                <th>ESPECIALIDAD</th>
+                                <th>COMENTARIOS</th>
+                                <th>AGENTE</th>
+                                <th>FECHAyHORA CONTACTADO</th>
+                                <th>NO CONTACTADO</th>
+                                <th>NO CONTACTADO 2</th>
+                                <th>NOTA</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for LLAMADAS_ESPECIALISTAS in dataconsulta %}
+                            <tr id="fila-{{ LLAMADAS_ESPECIALISTAS.id_llamada }}">
+
+                                    <td>{{ LLAMADAS_ESPECIALISTAS.id_llamada }}</td>
+                                    <td>{{ LLAMADAS_ESPECIALISTAS.pais }}</td>
+                                    <td>
+                                        <input type="text" name="numero" class="input-numero" value="{{ LLAMADAS_ESPECIALISTAS.numero or '' }}">
+                                    </td>
+                                    <td>
+                                        <input type="text" name="cliente" class="input-cliente" value="{{ LLAMADAS_ESPECIALISTAS.cliente or '' }}">
+                                    </td>
+                                    <td>{{ LLAMADAS_ESPECIALISTAS.agente_receptor }}</td>
+                                    <td>{{ LLAMADAS_ESPECIALISTAS.hora_atendido }}</td>
+                                    <td>{{ LLAMADAS_ESPECIALISTAS.especialidad_destino }}</td>
+                                    <td>{{ LLAMADAS_ESPECIALISTAS.comentarios }}</td>
+                                    <td>
+                                        <input type="text" name="agente" class="input-agente" value="{{ LLAMADAS_ESPECIALISTAS.agente or '' }}">
+                                    </td>
+                                    <td>
+                                        <input type="datetime" name="fechayhoracontactado" class="input-fechayhora_contactado" value="{{ LLAMADAS_ESPECIALISTAS.fechayhora_contactado or '' }}">
+                                    </td>
+                                    <td>
+                                        <input type="datetime" name="fechayhoraNO" class="input-fechayhora_nocontactado" value="{{ LLAMADAS_ESPECIALISTAS.fechayhora_nocontactado or '' }}">
+                                    </td>
+                                    <td>
+                                        <input type="datetime" name="fechayhoraNO2" class="input-fechayhora_nocontactado2" value="{{ LLAMADAS_ESPECIALISTAS.fechayhora_nocontactado2 or '' }}">
+                                    </td>
+                                    <td>
+                                        <input type="text" name="nota" class="input-nota"value="{{ LLAMADAS_ESPECIALISTAS.nota or '' }}">
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn-guardar" onclick="guardarFila('{{ LLAMADAS_ESPECIALISTAS.id_llamada }}')" style="background-color: #28a745; color: white; border: none; padding: 5px 10px; cursor: pointer; border-radius: 3px;">
+                                            Guardar
+                                        </button>
+                                    </td>
+
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    {% else %}
+                    <p style="text-align: center;">NO HAY DATOS A MOSTRAR</p>
+                    {% endif %}
+                    <br>
+                    <br><br>
+                    <a href="apuntarllamadas" class="botonresultado">ANOTAR LLAMADA</a>
+                    <a href="llamadasespecialistas" class="botoneliminar">VOLVER A BUSCAR</a>
+                </div>
+            </div>
+        </article>
+    </section>
+    <footer class="pieDePagina">
+        <h3 style="text-align:center">Copyright © 2025 All rights reserved.</h3>
+    </footer>
+    <script>
+        function guardarFila(idLlamada) {
+            // 1. Localizar la fila exacta en la tabla usando el ID
+            const fila = document.getElementById(`fila-${idLlamada}`);
+            const boton = fila.querySelector('.btn-guardar');
+            
+            // 2. Extraer los valores actuales de los inputs de esa fila
+            const cliente = fila.querySelector('.input-cliente').value;
+            const agente = fila.querySelector('.input-agente').value;
+            const fechayhoracontactado = fila.querySelector('.input-fechayhora_contactado').value;
+            const fechayhoraNO = fila.querySelector('.input-fechayhora_nocontactado').value;
+            const fechayhoraNO2 = fila.querySelector('.input-fechayhora_nocontactado2').value;
+            const nota = fila.querySelector('.input-nota').value;
+        
+            // Cambiar visualmente el botón para indicar que está procesando
+            const textoOriginal = boton.innerText;
+            boton.innerText = "⏳ ...";
+            boton.disabled = true;
+        
+            // 3. Enviar los datos a Flask mediante una petición POST asíncrona (AJAX)
+            fetch(`/actualizar_llamada_especialista/${idLlamada}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json' // Indicamos que enviamos datos en formato JSON
+                },
+                body: JSON.stringify({
+                    cliente: cliente,
+                    agente: agente,
+                    fechayhoracontactado: fechayhoracontactado,
+                    fechayhoraNO: fechayhoraNO,
+                    fechayhoraNO2: fechayhoraNO2,
+                    nota: nota
+                })
+            })
+            .then(response => response.json()) // Esperamos una respuesta en formato JSON de Python
+            .then(data => {
+                if (data.status === 'success') {
+                    // Animación temporal para confirmar el guardado exitoso
+                    boton.innerText = "✅ Hecho";
+                    boton.style.backgroundColor = "#155724";
+                    window.location.reload();
+                    
+                    setTimeout(() => {
+                        boton.innerText = textoOriginal;
+                        boton.style.backgroundColor = "#28a745";
+                        boton.disabled = false;
+                    }, 1500);
+                } else {
+                    alert("Error al guardar: " + data.message);
+                    boton.innerText = textoOriginal;
+                    boton.disabled = false;
+                }
+            })
+            .catch(error => {
+                console.error("Error en la petición:", error);
+                alert("Ocurrió un error de red al intentar guardar.");
+                boton.innerText = textoOriginal;
+                boton.disabled = false;
+            });
+        }
+        </script>
+</body>
+
+</html>

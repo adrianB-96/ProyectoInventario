@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="utf8">
+		<meta name="description" content="Inventario SAT">
+		<meta name="keywords" content="HTML5, CSS3, JavaScript">
+		<title>INVENTARIO</title>
+		<link rel="stylesheet" href="{{ url_for('static', filename='css/estilos.css') }}"/>
+	</head>
+	<body style="background-color:powderblue;">
+		<header>
+		</header>
+		<section>
+			{% include 'navbar.html' %}
+			<br>
+			<article>
+				<br>
+				{% with messages = get_flashed_messages() %}
+					
+				{% if messages %}
+
+				{% for message in messages %}
+				<div class="alert alert-success alert-dismissible">
+					<strong>{{ message }}</strong>
+					<a href="editeliminar" data-dismiss="alert" aria-label="close">&times;</a>
+				</div>
+				<br />
+				{% endfor %}
+				{% endif %}
+
+				{% endwith %}
+				<div class="busquedaform">
+					<div class="textobusqueda">
+						<h1 id="title">ELIMINAR REGISTRO:</h1>
+						<form method="POST" action="/editeliminar" id="editeliminar">
+							<label for="id">ID*:</label>
+							<input type="text" id="id" name="id" required><br>
+							<br><input type="submit" class= "botoneliminar" value="ELIMINAR">
+						</form>
+						<div>
+                            <br><input type="button" class="boton-buscar" onclick="history.back()" name="VOLVER" value="VOLVER">
+                        </div>
+					</div>
+				</div>
+			</article>
+		</section>
+		<footer class="pieDePagina">
+			<h3 style="text-align:center">Copyright © 2025 All rights reserved.</h3>
+		</footer>
+	</body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="utf8">
+		<meta name="description" content="Inventario SAT">
+		<meta name="keywords" content="HTML5, CSS3, JavaScript">
+		<title>INVENTARIO</title>
+		<link rel="stylesheet" href="{{ url_for('static', filename='css/estilos.css') }}" />
+	</head>
+	<body style="background-color:powderblue;">
+	<header>
+	</header>
+		{% include 'navbar.html' %}
+	<section>
+		<article>
+			<br>
+			{% with messages = get_flashed_messages() %}
+				
+			{% if messages %}
+
+			{% for message in messages %}
+			<div class="alert alert-success alert-dismissible">
+				<strong>{{ message }}</strong>
+				<a href="editcorrect" data-dismiss="alert" aria-label="close">&times;</a>
+			</div>
+			<br />
+			{% endfor %}
+			{% endif %}
+
+			{% endwith %}
+			<br />
+			<div class="busquedaform">
+				<div class="textobusqueda">
+						<h1 id="title">INTRODUCE LOS DATOS A AÑADIR:</h1>
+					<form method="POST" action="/insert" id="insertform">
+						<div>
+							<label for="especialidad">ESPECIALIDAD:</label>
+							<select id="especialidad" name="especialidad">
+							{% for ESPECIALIDAD in specialist %}
+								<option value="{{ ESPECIALIDAD.nombre }}"> {{ ESPECIALIDAD.nombre }}</option>
+							{% endfor %}
+							</select><br><br>
+							<label for="puestos">PUESTO:</label>
+							<select id="puesto" name="puesto">
+							{% for PUESTOS in puesto %}
+								<option value="{{ PUESTOS.nombre }}"> {{ PUESTOS.nombre }}</option>
+							{% endfor %}
+							</select><br>
+							<label for="productos">PRODUCTO:</label>
+							<input type="text" id="producto" name="producto"><br><br>
+							<label for="ipproduct">IP PRODUCTO:</label>
+							<input type="text" id="ipproducto" name="ipproducto"><br><br>
+							<label for="puerto">PUERTO:</label>
+							<input type="text" id="puerto" name="puerto"><br><br>
+							<label for="userproduct">USUARIO PRODUCTO:</label>
+							<input type="text" id="userproducto" name="userproducto"><br><br>
+							<label for="pwdproduct">CONTRASEÑA PRODUCTO:</label>
+							<input type="text" id="pwdproducto" name="pwdproducto"><br><br>
+							<input type="submit" value="GUARDAR" class="botonresultado"><br><br>
+						</div>
+					</form>
+				</div>
+			</div>
+		</article>
+	</section>
+		<footer class="pieDePagina">
+			<h3 style="text-align:center">Copyright © 2025 All rights reserved.</h3>
+		</footer>
+	</body>
+</html>

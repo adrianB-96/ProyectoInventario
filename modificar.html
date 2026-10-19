@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="utf8">
+        <meta name="description" content="Inventario SAT">
+        <meta name="keywords" content="HTML5, CSS3, JavaScript">
+        <title>INVENTARIO</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/estilos.css') }}"/>
+    </head>
+    <body style="background-color:powderblue;">
+        <header>
+        </header>
+        <section>
+            {% include 'navbar.html' %}
+            <article>
+                    <br>
+                        <div class="busquedaform">
+                        <div class="textobusqueda">
+                            <h1 id="title">HAS INICIADO SESION CORRECTAMENTE:</h1>
+                            <a href="/editcorrect" class="botonresultado">AÑADIR DISPOSITIVO</a>
+                            <a href="/busqueda" class="botoneliminar">ELIMINAR/EDITAR DISPOSITIVO</a><br><br><br>
+                            <a href="llamadasALL" class="botonresultado">VER LLAMADAS PERDIDAS</a>
+                            <a href="/llamadasespecialistasALL"" class="botonresultado">VER LLAMADAS ESPECIALISTAS</a>
+                        </div>
+                    </div>
+            </article>
+        </section>
+        <footer>
+        <h3 style="text-align:center">Copyright © 2025 All rights reserved.</h3>
+        </footer>
+    </body>
+</html>

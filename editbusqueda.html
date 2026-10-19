@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+    <meta charset="utf8">
+    <meta name="description" content="Inventario SAT">
+    <meta name="keywords" content="HTML5, CSS3, JavaScript">
+    <title>INVENTARIO</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/estilos.css') }}"/>
+    </head>
+    <body style="background-color:powderblue;">
+    <header>
+    </header>
+        <section>
+            {% include 'navbar.html' %}
+        <br>
+            <article>
+                <br>
+                {% with messages = get_flashed_messages() %}
+                    
+                {% if messages %}
+                
+                {% for message in messages %}
+                <div class="alert alert-success alert-dismissible">
+                    <strong>{{ message }}</strong>
+                    <a href="editbusqueda" data-dismiss="alert" aria-label="close">&times;</a>
+                </div>
+                <br />
+                {% endfor %}
+                {% endif %}
+                
+                {% endwith %}
+                <div class="busquedaform">
+                    <div class="textobusqueda">
+                    <h1 id="title">EDITAR REGISTROS:</h1>
+                        <form method="POST" action="/editbusqueda" id="editbusqueda">
+                            <label for="id">ID*:</label>
+                            <input type="text" id="id" name="id" required><br>
+                            <label for="ip">IP:</label>
+                            <input type="text" id="ip" name="ip"><br>
+                            <label for="puerto">PUERTO:</label>
+                            <input type="text" id="puerto" name="puerto"><br>
+                            <label for="usuario">USUARIO:</label>
+                            <input type="text" id="usuario" name="usuario"><br>
+                            <label for="contraseña">CONTRASEÑA:</label>
+                            <input type="text" id="contraseña" name="contraseña"><br>
+                            <br><input type="submit" value="EDITAR" class="botonresultado">
+                            <input type="button" class="botoneliminar" onclick="history.back()" name="VOLVER" value="VOLVER">
+                        </form>
+                    </div>
+                </div>
+            </article>
+        </section>
+        <footer class="pieDePagina">
+            <h3 style="text-align:center">Copyright © 2025 All rights reserved.</h3>
+        </footer>
+    </body>
+</html>

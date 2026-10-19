@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="utf8">
+		<meta name="description" content="Inventario SAT">
+		<meta name="keywords" content="HTML5, CSS3, JavaScript">
+		<title>INVENTARIO</title>
+		<link rel="stylesheet" href="{{ url_for('static', filename='css/estilos.css') }}"/>
+	</head>
+	<body style="background-color:powderblue;">
+		<header>
+		</header>
+		<section>
+			{% include 'navbar.html' %}
+			<article>
+				<div class="parent">
+					<a href="/busqueda/puesto 1" class="boton-puesto">
+						<div>Puesto 1</div>
+					</a>
+					<a href="/busqueda/puesto 2" class="boton-puesto">
+						<div>Puesto 2</div>
+					</a>
+					<a href="/busqueda/puesto 3" class="boton-puesto">
+						<div>Puesto 3</div>
+					</a>
+					<a href="/busqueda/puesto 4" class="boton-puesto">
+						<div>Puesto 4</div>
+					</a>
+					<a href="/busqueda/puesto 5" class="boton-puesto">
+						<div>Puesto 5</div>
+					</a>
+					<a href="/busqueda/puesto 6" class="boton-puesto">
+						<div>Puesto 6</div>
+					</a>
+				</div>
+				<!--<map name="mapita" title="PUESTO">
+					<area shape="circle" coords="265,275,30" href="http://127.0.0.1:5001/busqueda">
+					<area shape="circle" coords="1250,830,30" href="http://127.0.0.1:5001/busqueda">
+				</map>
+				<img src="{{ url_for('static', filename='images/planoSAT.png') }}" usemap="#mapita" class="imagenplano">-->
+			</article>
+		</section>
+		<footer class="pieDePagina">
+			<h3 style="text-align:center">Copyright © 2026 All rights reserved.</h3>
+		</footer>
+	</body>
+</html>

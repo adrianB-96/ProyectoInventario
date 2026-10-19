@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+    <meta charset="utf8">
+    <meta name="description" content="Inventario SAT">
+    <meta name="keywords" content="HTML5, CSS3, JavaScript">
+    <title>INVENTARIO</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/estilos.css') }}"/>
+    </head>
+    <body style="background-color:powderblue;">
+    <header>
+    </header>
+        <section>
+            {% include 'navbar.html' %}
+        <br>
+            <article>
+                <br>
+                {% with messages = get_flashed_messages() %}
+                    
+                {% if messages %}
+                
+                {% for message in messages %}
+                <div class="alert alert-success alert-dismissible">
+                    <strong>{{ message }}</strong>
+                    <a href="editbusqueda" data-dismiss="alert" aria-label="close">&times;</a>
+                </div>
+                <br />
+                {% endfor %}
+                {% endif %}
+                
+                {% endwith %}
+                <div class="busquedaform">
+                    <div class="textobusqueda">
+                    <h1 id="title">Apuntar llamada:</h1>
+                        <form method="POST" action="/editllamadas" id="editllamadas">
+                            <label for="pais">PAIS:</label>
+                            <input type="text" id="pais" name="pais" required><br>
+                            <label for="numero">NUMERO:</label>
+                            <input type="text" id="numero" name="numero" required><br>
+                            <label for="cliente">CLIENTE:</label>
+                            <input type="text" id="cliente" name="cliente" required><br>
+                            <label for="agente_receptor">AGENTE_RECEPTOR:</label>
+                            <input type="text" id="agente_receptor" name="agente_receptor" required><br>
+                            <label for="hora_atendido">HORA ATENDIDO:</label>
+                            <input type="text" id="hora_atendido" name="hora_atendido" required><br>
+                            <label for="especialidad">ESPECIALIDAD:</label>
+                            <input type="text" id="especialidad" name="especialidad" required><br>
+                            <label for="comentarios">COMENTARIOS:</label>
+                            <input type="text" id="comentarios" name="comentarios" required><br>
+                            <br><input type="submit" value="GUARDAR" class="boton-buscar">
+                        </form>
+                        <div>
+                            <br><input type="button" class="botoneliminar" onclick="history.back()" name="VOLVER" value="VOLVER">
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </section>
+        <footer class="pieDePagina">
+            <h3 style="text-align:center">Copyright © 2026 All rights reserved.</h3>
+        </footer>
+    </body>
+</html>

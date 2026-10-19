@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+	<meta charset="utf8">
+	<meta name="description" content="Inventario SAT">
+	<meta name="keywords" content="HTML5, CSS3, JavaScript">
+	<title>INVENTARIO</title>
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/estilos.css') }}" />
+</head>
+
+<body style="background-color:powderblue;">
+	<header>
+	</header>
+	{% include 'navbar.html' %}
+	<section>
+		<article>
+			<br>
+			{% with messages = get_flashed_messages() %}
+
+			{% if messages %}
+
+			{% for message in messages %}
+			<div class="alert alert-success alert-dismissible">
+				<strong>{{ message }}</strong>
+				<a href="edit" data-dismiss="alert" aria-label="close">&times;</a>
+			</div>
+			<br />
+			{% endfor %}
+			{% endif %}
+
+			{% endwith %}
+			<div class="iniciosesion">
+				<div class="formulario">
+					<form method="POST" action="/edit" id="loginform">
+						<h1 id="title">Inicio sesion</h1>
+						<div class="input-group">
+							<i></i>
+							<input type="text" placeholder="Usuario" name="user" id="user">
+						</div>
+						<div class="input-group">
+							<i></i>
+							<input type="password" placeholder="Contraseña" name="password" id="password">
+						</div>
+						<input type="submit" value="ACCEDER" class="boton-buscar">
+					</form>
+				</div>
+			</div>
+		</article>
+	</section>
+	<footer class="pieDePagina">
+		<h3 style="text-align:center">Copyright © 2025 All rights reserved.</h3>
+	</footer>
+</body>
+
+</html>

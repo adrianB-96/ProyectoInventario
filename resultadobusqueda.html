@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="utf8">
+        <meta name="description" content="Inventario SAT">
+        <meta name="keywords" content="HTML5, CSS3, JavaScript">
+        <title>INVENTARIO</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/estilos.css') }}"/>
+    </head>
+    <body style="background-color:powderblue;">
+        <header>
+        </header>
+            {% include 'navbar.html' %}
+        <section>
+            <article>
+                <br>
+                <div class="busquedaform">
+                    <div class="resultadobusqueda">
+                        <h2 id="title">RESULTADO DE LA BUSQUEDA</h2>
+                        <div>
+                            <h1>REGISTROS TOTALES: {{ datatotal }}</h1>
+                        </div>
+                        <!-- {{ dataconsulta }} -->
+                        {% if (dataconsulta) %}
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>ESPECIALIDAD</th>
+                                        <th>PUESTO</th>
+                                        <th>MODELO</th>
+                                        <th>IP</th>
+                                        <th>PUERTO</th>
+                                        <th>USUARIO</th>
+                                        <th>CONTRASEÑA</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for REGISTROS in dataconsulta %}
+                                        <tr>
+                                            <td>{{ REGISTROS.id_registro }}</td>
+                                            <td>{{ REGISTROS.nombre_especialidad }}</td>
+                                            <td>{{ REGISTROS.nombre_puesto }}</td>
+                                            <td>{{ REGISTROS.modelo_producto }}</td>
+                                            <td>{{ REGISTROS.ip_producto }}</td>
+                                            <td>{{ REGISTROS.puerto }}</td>
+                                            <td>{{ REGISTROS.usuario_producto }}</td>
+                                            <td>{{ REGISTROS.pwd_terminal }}</td>
+                                        </tr>
+                                    {% endfor %}   
+                                </tbody>
+                            </table>
+                        {% else %}
+                            <p style="text-align: center;">NO HAY DATOS A MOSTRAR</p>
+                        {% endif %}
+                        <br>
+                        <input type="button" onclick="history.back()" name="VOLVER A BUSCAR" value="VOLVER A BUSCAR" class="boton-buscar">
+                        <br><br>
+                        <a href="/editbusqueda" class="botonresultado">EDITAR REGISTRO</a>
+                        <a href="/editeliminar" class="botoneliminar">ELIMINAR REGISTRO</a>
+                    </div>
+                </div>
+            </article>
+        </section>
+        <footer class="pieDePagina">
+            <h3 style="text-align:center">Copyright © 2025 All rights reserved.</h3>
+        </footer>
+    </body>
+</html>
